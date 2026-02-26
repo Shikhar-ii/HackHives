@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HackHives @ West Virginia State University — April 3–4, 2026</title>
+  <meta name="description" content="HackHives at WVSU: Securing Air Quality Data in Distributed Sensor Networks. April 3–4, 2026." />
+
+  <style>
+    :root{
+      --bg:#070707;
+      --bg2:#0e0e0e;
+      --card:#101010;
+      --stroke: rgba(255,255,255,.10);
+      --text:#f6f6f6;
+      --muted: rgba(246,246,246,.72);
+
+      /* YELLOW + BLACK */
+      --y:#ffd000;
+      --y2:#ffea6a;
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --radius: 18px;
+      --max: 1120px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color: var(--text);
+      background:
+        radial-gradient(900px 600px at 20% 20%, rgba(255,208,0,.16), transparent 60%),
+        radial-gradient(900px 600px at 80% 30%, rgba(255,208,0,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:0 20px}
+    .skip{
+      position:absolute; left:-999px; top:auto; width:1px; height:1px; overflow:hidden;
+    }
+    .skip:focus{
+      left:16px; top:16px; width:auto; height:auto;
+      background:var(--y); color:#000; padding:10px 12px; border-radius:12px; z-index:9999;
+    }
+
+    /* Top banner / nav */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      background: rgba(7,7,7,.72);
+      border-bottom: 1px solid var(--stroke);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner{
+      height:64px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 900; letter-spacing:.3px;
+    }
+    .brand-badge{
+      width:34px; height:34px; border-radius:12px;
+      background: linear-gradient(135deg, var(--y), rgba(255,208,0,.35));
+      box-shadow: 0 0 32px rgba(255,208,0,.25);
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .nav-links{
+      display:flex; gap:14px; flex-wrap:wrap;
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .nav-links a{
+      padding:8px 10px; border-radius: 12px;
+    }
+    .nav-links a:hover{
+      background: rgba(255,208,0,.10);
+      color: var(--text);
+    }
+    .nav-cta{
+      display:flex; gap:10px; align-items:center;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight: 900;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      white-space: nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10)}
+    .btn:active{transform: translateY(0px)}
+    .btn-primary{
+      background: linear-gradient(135deg, var(--y), rgba(255,208,0,.35));
+      border-color: rgba(255,208,0,.55);
+      color:#000;
+      box-shadow: 0 18px 40px rgba(255,208,0,.18);
+    }
+    .btn-primary:hover{background: linear-gradient(135deg, var(--y2), rgba(255,208,0,.35));}
+
+    /* Hero */
+    header.hero{
+      padding: 46px 0 18px;
+    }
+    .hero-grid{
+      display:grid; grid-template-columns: 1.1fr .9fr;
+      gap: 18px; align-items: stretch;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 13px;
+    }
+    .pill-dot{
+      width:9px; height:9px; border-radius: 999px;
+      background: var(--y);
+      box-shadow: 0 0 18px rgba(255,208,0,.55);
+    }
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+    }
+    .sub{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 16px;
+      max-width: 62ch;
+    }
+    .hero-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+    .card{
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .card-pad{padding: 18px}
+    .poster{
+      height: 360px;
+      border-radius: calc(var(--radius) + 6px);
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(900px 340px at 20% 20%, rgba(255,208,0,.38), transparent 60%),
+        radial-gradient(700px 280px at 80% 55%, rgba(255,208,0,.16), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+      position:relative;
+      overflow:hidden;
+      padding: 18px;
+      display:flex; align-items:flex-end;
+    }
+    .poster:before{
+      content:"";
+      position:absolute; inset:-30px;
+      background:
+        repeating-linear-gradient(135deg,
+          rgba(255,208,0,.08) 0px,
+          rgba(255,208,0,.08) 2px,
+          transparent 2px,
+          transparent 10px);
+      opacity:.4;
+      pointer-events:none;
+    }
+    .poster-inner{position:relative}
+    .poster-title{font-weight: 1000; font-size: 22px; color:#000; background: var(--y); display:inline-block; padding:8px 10px; border-radius: 14px}
+    .poster-meta{margin-top:10px; color: rgba(246,246,246,.82); font-weight: 800}
+    .poster-meta b{color: var(--y)}
+
+    /* Sections */
+    section{padding: 26px 0}
+    .section-title{
+      display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+      margin-bottom: 12px;
+    }
+    .section-title h2{
+      margin:0;
+      font-size: 20px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.90);
+    }
+    .section-title p{margin:0; color: var(--muted)}
+    .grid-2{display:grid; grid-template-columns: 1fr 1fr; gap: 14px}
+    .grid-3{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px}
+
+    .callout{
+      padding: 14px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,208,0,.25);
+      background: rgba(255,208,0,.08);
+      color: rgba(246,246,246,.90);
+      font-weight: 800;
+      line-height: 1.55;
+    }
+    .kicker{
+      color: rgba(255,255,255,.90);
+      font-weight: 1000;
+      font-size: 16px;
+      margin: 0 0 8px;
+    }
+    .muted{color: var(--muted); line-height:1.7; margin:0}
+    ul.clean{margin: 10px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.7}
+    ul.clean li{margin: 6px 0}
+
+    /* Schedule */
+    .tabs{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
+    .tab{
+      padding:10px 12px; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      font-weight: 1000;
+      cursor:pointer;
+      color: var(--muted);
+    }
+    .tab.active{
+      background: rgba(255,208,0,.18);
+      border-color: rgba(255,208,0,.40);
+      color: var(--text);
+    }
+    table{
+      width:100%;
+      border-collapse: collapse;
+      overflow:hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    th, td{
+      text-align:left;
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      vertical-align: top;
+    }
+    th{
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.82);
+      background: rgba(255,255,255,.04);
+    }
+    td{color: var(--muted); line-height: 1.6}
+    td b{color: var(--text)}
+    .badge{
+      display:inline-flex; align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,208,0,.14);
+      border: 1px solid rgba(255,208,0,.25);
+      color: var(--text);
+      font-weight: 1000;
+      font-size: 12px;
+    }
+
+    /* FAQ accordion */
+    .faq{
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+    }
+    .faq button{
+      width:100%;
+      border:0;
+      background: transparent;
+      color: var(--text);
+      text-align:left;
+      padding: 14px 16px;
+      font-weight: 1000;
+      display:flex; align-items:center; justify-content:space-between;
+      cursor:pointer;
+    }
+    .faq button:hover{background:rgba(255,255,255,.06)}
+    .faq .panel{
+      max-height:0;
+      overflow:hidden;
+      transition: max-height .22s ease;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .faq .panel p{
+      margin:0; padding: 12px 16px 16px;
+      color: var(--muted);
+      line-height:1.7;
+    }
+
+    footer{
+      padding: 22px 0 40px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 940px){
+      .hero-grid{grid-template-columns:1fr}
+      .grid-2{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+      .nav-links{display:none}
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip Navigation</a>
+
+  <!-- NAV -->
+  <div class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="HackHives home">
+        <div class="brand-badge" aria-hidden="true"></div>
+        <div>HackHives</div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#logistics">Logistics</a>
+        <a href="#reimbursements">Reimbursements</a>
+        <a href="#conduct">Code of Conduct</a>
+        <a href="#register">Register</a>
+      </nav>
+
+      <div class="nav-cta">
+        <!-- Replace # with your real registration URL -->
+        <a class="btn btn-primary" href="#register">Register</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header id="top" class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="pill"><span class="pill-dot"></span> April 3–4, 2026 • West Virginia State University</div>
+        <h1>MS-CC Hackathon @ WVSU<br><span style="color:var(--y)">HackHives</span></h1>
+        <p class="sub">
+          <b>Securing Air Quality Data in Distributed Sensor Networks.</b>
+          Build cybersecurity + data science solutions that protect real-world environmental monitoring systems.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#register">Register (opens in new window)</a>
+          <a class="btn" href="#schedule">View Schedule</a>
+          <a class="btn" href="#about">Read the Challenge</a>
+        </div>
+
+        <div style="margin-top:14px" class="callout">
+          Note: Registration is open to all students. Travel support (mileage, hotel, dinner per diem) is only available
+          to students within a <b>250-mile radius</b> of West Virginia State University.
+        </div>
+      </div>
+
+      <div class="card card-pad">
+        <div class="poster" role="img" aria-label="HackHives hero poster">
+          <div class="poster-inner">
+            <div class="poster-title">HACKHIVES</div>
+            <div class="poster-meta"><b>April 3–4, 2026</b> • WVSU</div>
+            <div class="poster-meta">Theme: <b>Trust + cybersecurity</b> in distributed sensor networks</div>
+            <div class="poster-meta">Tools: APIs • time-series • anomaly detection • open-source</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ABOUT / CHALLENGE -->
+    <section id="about">
+      <div class="container">
+        <div class="section-title">
+          <h2>Securing Air Quality Data</h2>
+          <p>Environmental science × cybersecurity × rural resilience</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-pad">
+            <p class="kicker">Challenge Overview</p>
+            <p class="muted">
+              The MS-CC Environmental Science Hackathon at West Virginia State University invites students to tackle real-world
+              sustainability and rural resilience challenges using data science, AI, and open-source tools.
+              Students will think like cybersecurity professionals responsible for protecting real-world data systems that communities rely on.
+            </p>
+
+            <p class="muted" style="margin-top:10px">
+              Participants will work with data from a distributed network of low-cost air quality sensors.
+              These networks are used in rural and under-resourced regions where traditional monitoring infrastructure is limited.
+            </p>
+          </div>
+
+          <div class="card card-pad">
+            <p class="kicker">Why This Matters</p>
+            <p class="muted">
+              These systems are vulnerable to subtle cyber threats: sensors can report faulty data, APIs can be misused,
+              and decision systems can be misled by incomplete or manipulated information.
+            </p>
+
+            <div style="height:10px"></div>
+            <span class="badge">Your mission:</span>
+            <ul class="clean">
+              <li>Investigate how failures happen</li>
+              <li>Design detection + prevention strategies</li>
+              <li>Build a sensor trust model to flag unreliable data</li>
+              <li>Propose practical defenses to improve resilience</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="card card-pad">
+          <p class="kicker">Across two days, students will:</p>
+          <ul class="clean">
+            <li>Learn how to access and analyze real-world air quality data using APIs and time-series workflows</li>
+            <li>Work in teams to investigate cyber + data integrity threats in distributed sensor networks</li>
+            <li>Design and test a sensor trust model to detect unreliable or compromised sources</li>
+            <li>Propose cybersecurity defenses to improve resilience of environmental monitoring systems</li>
+            <li>Present solutions with awards for technical rigor, defensive strategy, and clarity of reasoning</li>
+          </ul>
+          <p class="muted" style="margin-top:10px">
+            Top projects may be highlighted at MS-CC events and connected to future opportunities such as internships,
+            research collaborations, and mentorship.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section id="schedule">
+      <div class="container">
+        <div class="section-title">
+          <h2>Event Schedule</h2>
+          <p>Two-day build sprint with checkpoints + presentations</p>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Schedule tabs">
+          <button class="tab active" type="button" data-day="day1" role="tab" aria-selected="true">Day 1</button>
+          <button class="tab" type="button" data-day="day2" role="tab" aria-selected="false">Day 2</button>
+        </div>
+
+        <div class="card card-pad">
+          <div id="day1">
+            <table aria-label="Day 1 schedule">
+              <thead>
+                <tr><th>Time</th><th>What happens</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Morning</b></td>
+                  <td>
+                    Welcome & Introductions<br>
+                    Hackathon theme: Cybersecurity and trust in distributed sensor networks<br>
+                    Overview of air quality systems + use cases<br>
+                    Mentor intros & expectations<br>
+                    Ice-breaker & team formation (if not pre-formed)<br>
+                    Technical setup tutorial: API access, time-series exploration, visualization + anomaly detection
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Afternoon</b></td>
+                  <td>
+                    Understanding the challenge: detecting a real air quality event<br>
+                    Team ideation + analysis planning<br>
+                    Lunch / networking<br>
+                    Work block with mentor support<br>
+                    <b>Checkpoint #1:</b> detection approach + initial sensor reliability observations
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Evening</b></td>
+                  <td>
+                    Continued work session (snack break)<br>
+                    Optional lightning talk: cyber attacks on sensor networks + data integrity failures<br>
+                    Day 1 wrap-up: stand-ups + plan for trust model development on Day 2
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div id="day2" style="display:none">
+            <table aria-label="Day 2 schedule">
+              <thead>
+                <tr><th>Time</th><th>What happens</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Morning</b></td>
+                  <td>
+                    Quick recap + objectives<br>
+                    Work block: build a sensor trust score; evaluate reliability across sensors<br>
+                    <b>Checkpoint #2:</b> trust logic/scoring + anomalies/compromised data found
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Afternoon</b></td>
+                  <td>
+                    Final sprint: stress-test trust logic with simulated bad data + defensive recommendations<br>
+                    Project submission: code repository + short presentation/demo<br>
+                    Final presentations (10–15 minutes each)<br>
+                    Judging & awards: technical approach, trust effectiveness, defensive strategy, clarity
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Closing</b></td>
+                  <td>
+                    Closing remarks, next steps, and networking
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOGISTICS -->
+    <section id="logistics">
+      <div class="container">
+        <div class="section-title">
+          <h2>Hotel, Parking, Location</h2>
+          <p>Plan your trip (if needed)</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card card-pad">
+            <p class="kicker">Hotel Recommendation</p>
+            <p class="muted">
+              Sleep Inn & Suites Cross Lanes – South Charleston<br>
+              15 Goff Crossing Dr.<br>
+              Cross Lanes, WV 25313
+            </p>
+            <p class="muted" style="margin-top:10px">Contact the hotel directly for daily rates and reservations.</p>
+          </div>
+
+          <div class="card card-pad">
+            <p class="kicker">Parking</p>
+            <p class="muted">
+              Parking information will be provided when it is available.
+            </p>
+          </div>
+
+          <div class="card card-pad">
+            <p class="kicker">Who can register?</p>
+            <p class="muted">Open to all students.</p>
+            <p class="muted" style="margin-top:10px">
+              Travel support is limited to students within a <b>250-mile radius</b> of WVSU.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REIMBURSEMENTS -->
+    <section id="reimbursements">
+      <div class="container">
+        <div class="section-title">
+          <h2>Reimbursements</h2>
+          <p>Travel support details</p>
+        </div>
+
+        <div class="card card-pad">
+          <p class="muted">
+            We can reimburse reasonable mileage (within a 250-mile radius of WVSU) and hotel expenses
+            for MS-CC participants located more than 50 miles from the university.
+          </p>
+
+          <div style="height:10px"></div>
+
+          <div class="grid-2">
+            <div class="callout">
+              <b>Before the Workshop:</b><br>
+              Complete the MS-CC Travel Support Acceptance Form by <b>March 27</b> as part of registration.
+            </div>
+            <div class="callout">
+              <b>After the Workshop:</b><br>
+              Instructions for submitting reimbursement requests will be sent in the post-workshop email on <b>April 4</b>.
+            </div>
+          </div>
+
+          <p class="muted" style="margin-top:12px">
+            Not an MS-CC participant? Joining is free and helps build a community of practice for collaboration and support.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CODE OF CONDUCT -->
+    <section id="conduct">
+      <div class="container">
+        <div class="section-title">
+          <h2>Events Code of Conduct</h2>
+          <p>Professional, respectful, inclusive</p>
+        </div>
+
+        <div class="card card-pad">
+          <p class="muted">
+            Internet2 and the community are committed to promoting a positive environment at events.
+            Discrimination or harassment of any type is not tolerated.
+          </p>
+          <p class="muted" style="margin-top:10px">
+            Unacceptable behavior includes offensive comments, intimidation, stalking/unwanted attention, inappropriate physical contact,
+            or harassing/derogatory conduct. Participants violating rules may be asked to leave the event.
+          </p>
+
+          <div style="height:10px"></div>
+          <div class="callout">
+            If you believe you or someone else has been subject to these behaviors, contact the Internet2 Ethics Hotline:
+            <b>(877) 842-6829</b>.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REGISTER -->
+    <section id="register">
+      <div class="container">
+        <div class="section-title">
+          <h2>Registration</h2>
+          <p>Join HackHives at WVSU — April 3–4, 2026</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-pad">
+            <p class="kicker">Ready to build?</p>
+            <p class="muted">
+              Register to participate, get event updates, and (if eligible) access travel support steps.
+            </p>
+            <div style="height:12px"></div>
+
+            <!-- Replace the href with the real registration link -->
+            <a class="btn btn-primary" target="_blank" rel="noreferrer"
+               href="https://ms-cc.org/ms-cc-hackathon-at-west-virginia-state-university/">
+              Register (opens in a new window)
+            </a>
+
+            <div style="height:10px"></div>
+            <p class="muted" style="font-size:13px">
+              Tip: If you want this to go to your custom HackHives registration form, replace the link above.
+            </p>
+          </div>
+
+          <div class="faq" aria-label="FAQ">
+            <button type="button" aria-expanded="false">
+              Do I need cybersecurity experience?
+              <span>+</span>
+            </button>
+            <div class="panel">
+              <p>No. You’ll learn the basics in the Day 1 tutorial and work with mentors. Beginners are welcome.</p>
+            </div>
+
+            <button type="button" aria-expanded="false">
+              What should I bring?
+              <span>+</span>
+            </button>
+            <div class="panel">
+              <p>Laptop, charger, and a builder mindset. If you have sensors/data experience, bring it — but not required.</p>
+            </div>
+
+            <button type="button" aria-expanded="false">
+              How do submissions work?
+              <span>+</span>
+            </button>
+            <div class="panel">
+              <p>Submit a code repository and a short presentation/demo. Final demos are 10–15 minutes per team.</p>
+            </div>
+
+            <button type="button" aria-expanded="false">
+              Can I come solo?
+              <span>+</span>
+            </button>
+            <div class="panel">
+              <p>Yes. There’s team formation built into Day 1 (unless you already have a team).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container" style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap">
+        <div>© 2026 HackHives</div>
+        <div>Made with 🖤💛 by Shikhar</div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Schedule tabs
+    const tabs = document.querySelectorAll('.tab');
+    const day1 = document.getElementById('day1');
+    const day2 = document.getElementById('day2');
+
+    tabs.forEach(t => {
+      t.addEventListener('click', () => {
+        tabs.forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected','false'); });
+        t.classList.add('active');
+        t.setAttribute('aria-selected','true');
+
+        const day = t.dataset.day;
+        if(day === 'day1'){ day1.style.display='block'; day2.style.display='none'; }
+        else{ day1.style.display='none'; day2.style.display='block'; }
+      });
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq button').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.nextElementSibling;
+        const open = btn.getAttribute('aria-expanded') === 'true';
+
+        document.querySelectorAll('.faq button').forEach(b => b.setAttribute('aria-expanded','false'));
+        document.querySelectorAll('.faq .panel').forEach(p => p.style.maxHeight = 0);
+
+        if(!open){
+          btn.setAttribute('aria-expanded','true');
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
